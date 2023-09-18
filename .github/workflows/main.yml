@@ -1,6 +1,22 @@
-name: Build WebGL 🏗️
+name: Build & Deploy WebGL 🏗️
 
-on: [push, pull_request]
+on: 
+  push:
+  workflow_dispatch:  # Added to enable manual dispatching
+  # pull_request:     # Not running on PRs because it's a deploy
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+# Note: not sure what this means
 
 jobs:
   build:
@@ -44,3 +60,19 @@ jobs:
         with:
           name: Build
           path: build
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
+        with:
+          # Upload Build folder
+          path: 'build'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
