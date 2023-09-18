@@ -10,5 +10,7 @@ https://game.ci/docs/github/activation
 6. Enter secrets
 
 UNITY_LICENSE - (Copy the contents of your license file into here)
+
 UNITY_EMAIL - (Add the email address that you use to login to Unity)
+
 UNITY_PASSWORD - (Add the password that you use to login to Unity)
