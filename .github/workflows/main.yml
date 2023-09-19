@@ -57,6 +57,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: WebGL
+          allowDirtyBuild: true
       
       - name: Build project WebGL
         uses: game-ci/unity-builder@v3
@@ -66,6 +67,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows
+          allowDirtyBuild: true
 
       # Output
       - uses: actions/upload-artifact@v3
